@@ -1,0 +1,16 @@
+{
+  "name": "svg-spritr",
+  "preferGlobal": true,
+  "version": "0.0.1",
+  "author": "Alexey Ostrovsky",
+  "description": "a missing node tool for creating svg sprites",
+  "keywords": [
+    "svg",
+    "sprite"
+  ],
+  "dependencies": {
+    "xml2js": "^0.4.1"
+  },
+  "devDependencies": {},
+  "license": "MIT"
+}
