@@ -9,7 +9,8 @@
     "sprite"
   ],
   "dependencies": {
-    "xml2js": "^0.4.1"
+    "xml2js": "^0.4.1",
+    "eyes": "^0.1.8"
   },
   "devDependencies": {},
   "license": "MIT"
