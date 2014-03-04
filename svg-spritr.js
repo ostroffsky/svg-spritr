@@ -73,7 +73,7 @@ fs.readdir(INPUT_DIR , function(err, files){
                     parsedFileContent.svg.$.x = 0;
 
                     // add current icon object to resulting sprite object
-                    sprite.svg.svg.push(parsedFileContent);
+                    sprite.svg.svg.push(parsedFileContent.svg);
 
                     // when all files have been processed
                     if(!filesLeft) {
