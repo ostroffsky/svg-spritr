@@ -6,6 +6,8 @@
 
 var fs = require('fs');
 var xml2js = require('xml2js');
+var SVGO = require('svgo');
+var svgo = new SVGO(/*{ custom config object }*/);
 var builder = new xml2js.Builder();
 var parseString = xml2js.parseString;
 var inspect = require('eyes').inspector({maxLength: false});
@@ -64,13 +66,20 @@ fs.readdir(INPUT_DIR , function(err, files){
                         // build xml from resulting sprite object
                         var resultSprite = builder.buildObject(sprite);
 
+                        svgo.optimize(resultSprite, function(optimizedResultSprite) {
 
-                        fs.writeFile(OUTPUT_DIR + OUTPUT_SPRITE_FILENAME, resultSprite, function(err) {
-                            if(err) {
-                                console.log(err);
-                            } else {
-                                console.log("The sprite was successfully saved to " + OUTPUT_DIR + OUTPUT_SPRITE_FILENAME);
-                            }
+                            fs.writeFile(OUTPUT_DIR + OUTPUT_SPRITE_FILENAME, optimizedResultSprite.data, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } else {
+                                    console.log("\n*************************************************");
+                                    console.log("[SVG-SPRITR]\nThe sprite was successfully saved to " + OUTPUT_DIR + OUTPUT_SPRITE_FILENAME);
+                                    console.log("Resulting sprite info: ");
+                                    inspect(optimizedResultSprite.info);
+                                    console.log("*************************************************\n");
+                                }
+                            });
+
                         });
                     }
                 });
