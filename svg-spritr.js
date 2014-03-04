@@ -18,7 +18,7 @@ var OUTPUT_SPRITE_FILENAME = 'sprite.svg';
 var SVG_EXTENSION = '.svg';
 
 // initial position of each icon in the sprite
-var x = 0, y = 0;
+var x = 0, y = 0, width = 0, height = 0;
 
 // the resulting sprite object
 var sprite = {
@@ -53,10 +53,24 @@ fs.readdir(INPUT_DIR , function(err, files){
 
                 parseString(fileContent, function (err, parsedFileContent) {
                     var iconHeight = parseInt(parsedFileContent.svg.$.height);
+                    var iconWidth = parseInt(parsedFileContent.svg.$.width);
+
+                    // increase resulting sprite height
+                    height += iconHeight;
+                    sprite.svg.$.height = height;
+
+                    // set sprite width to widest icon's width
+                    if (width < iconWidth) {
+                        width = iconWidth;
+                        sprite.svg.$.width = width;
+                    }
 
                     // add icon under the previous
                     parsedFileContent.svg.$.y = y;
                     y += iconHeight;
+
+                    // sprite is vertical
+                    parsedFileContent.svg.$.x = 0;
 
                     // add current icon object to resulting sprite object
                     sprite.svg.svg.push(parsedFileContent);
